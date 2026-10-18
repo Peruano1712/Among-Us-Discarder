@@ -396,6 +396,25 @@
       padding: 0;
     }
     .status-choice:hover, .status-choice:focus-visible { background: #129bcc; outline: 1px solid white; }
+    
+.status-icon-img {
+  display: block;
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.current-status .status-icon-img {
+  width: 18px;
+  height: 18px;
+}
+
+.status-choice .status-icon-img {
+  width: 16px;
+  height: 16px;
+}
+
     .empty-state {
       padding: 30px 12px 35px;
       text-align: center;
@@ -672,10 +691,12 @@
         const item = document.createElement('article');
         item.className = 'result-color';
         item.dataset.color = name;
-        const selectedIcon = status ? statusIconMarkup(status) : '?';
+        const selectedIcon = status
+  ? `<img class="status-icon-img" src="${status.icon}" alt="${status.label}">`
+  : '?';
         const statusContent = isOpen
           ? `<div class="status-menu-grid">${STATUSES.map(option => `
-              <button class="status-choice" type="button" data-status="${option.id}" title="${option.label}" aria-label="Set ${name} to ${option.label}">${statusIconMarkup(option)}</button>`).join('')}</div>`
+              <button class="status-choice" type="button" data-status="${option.id}" title="${option.label}" aria-label="Set ${name} to ${option.label}"><img class="status-icon-img" src="${option.icon}" alt=""></button>`).join('')}</div>`
           : `<span class="${status ? '' : 'status-question'}">${status ? status.label : '?'}</span>`;
         item.innerHTML = `
           <div class="result-crew">
